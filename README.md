@@ -11,7 +11,7 @@ This will involve going through:
 
 This maybe be followed by a project involving above concepts.
 
-##DataSets used are courtesy of the MOOC platform hosting the course.
+*DataSets used are courtesy of the MOOC platform hosting the course.
 
->Data is a precious thing and will last longer than the systems themselves
-    -Tim Burneres Lee(Founder WWW)
+>Data is a precious thing and will last longer than the systems themselves<br>
+    -Tim Burners Lee(Founder WWW)
