@@ -26,16 +26,28 @@ def parse_double(double):
 		return None
 	else:
 		return float(double)
+
 def parse_boolean(strg):
 	if strg == 'True':
 		return True
 	else:
 		return False
 
+def find_uniqueset(data):
+	result  = set()
+	for dic in data:
+		result.add(dic['account_key'])
+	return result
 
 enrollments = csv2list(enrollments_filepath)
 engagements = csv2list(engagement_filepath)
 submissions = csv2list(submissions_filepath)
+
+# Changing column name
+
+for dic in engagements: 
+	dic['account_key'] = dic['acct']
+	del dic['acct']
 
 # Format Enrollment data
 for enrollment in enrollments:
@@ -63,16 +75,15 @@ for submission in submissions:
 enrollment_num_rows = len(enrollments)
 engagement_num_rows = len(engagements)
 submission_num_rows = len(submissions)
-enrollment_num_rows_unique = len(set(dic['account_key'] for dic in enrollments))
-submissions_num_rows_unique = len(set(dic['account_key'] for dic in submissions))
-engagement_num_rows_unique = len(set(dic['acct'] for dic in engagements))
+enrollment_num_rows_unique = len(find_uniqueset(enrollments) ))
+submissions_num_rows_unique = len(find_uniqueset(submissions))
+engagement_num_rows_unique = len(find_uniqueset(engagements))
 
-print engagement_num_rows
-print enrollment_num_rows
-print submission_num_rows
-print enrollment_num_rows_unique
-print submissions_num_rows_unique
-print engagement_num_rows_unique
-
+# print engagement_num_rows
+# print enrollment_num_rows
+# print submission_num_rows
+# print enrollment_num_rows_unique
+# print submissions_num_rows_unique
+# print engagement_num_rows_unique
 
 
