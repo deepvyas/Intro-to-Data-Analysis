@@ -1,9 +1,9 @@
 import unicodecsv
 from datetime import datetime
 
-enrollments_filepath = './Dataset/enrollments.csv'
-submissions_filepath = './Dataset/project_submissions.csv'
-engagement_filepath = './Dataset/daily_engagement.csv'
+enrollments_filepath = '../Dataset/enrollments.csv'
+submissions_filepath = '../Dataset/project_submissions.csv'
+engagement_filepath = '../Dataset/daily_engagement.csv'
 
 def csv2list(filename):
 	with open(filename,'rb') as f:
@@ -34,8 +34,8 @@ def parse_boolean(strg):
 
 
 enrollments = csv2list(enrollments_filepath)
-engagements = csv2list(submissions_filepath)
-submissions = csv2list(engagement_filepath)
+engagements = csv2list(engagement_filepath)
+submissions = csv2list(submissions_filepath)
 
 # Format Enrollment data
 for enrollment in enrollments:
@@ -46,19 +46,33 @@ for enrollment in enrollments:
 	enrollment['days_to_cancel'] = parse_int(enrollment['days_to_cancel'])
 
 # Format Submission Data
-for submission in submissions:
-	submission['lessons_completed'] = parse_int(parse_double(submission['lessons_completed']))
-	submission['num_courses_visited'] = parse_int(parse_double(submission['num_courses_visited']))
-	submission['projects_completed'] = parse_int(parse_double(submission['projects_completed']))
-	submission['utc_date'] = parse_date(submission['utc_date'])
-# Format engagements Data
 for engagement in engagements:
-	engagement['completion_date'] = parse_date(engagement['completion_date'])
-	engagement['creation_date'] = parse_date(engagement['creation_date'])
+	engagement['lessons_completed'] = parse_int(parse_double(engagement['lessons_completed']))
+	engagement['num_courses_visited'] = parse_int(parse_double(engagement['num_courses_visited']))
+	engagement['projects_completed'] = parse_int(parse_double(engagement['projects_completed']))
+	engagement['utc_date'] = parse_date(engagement['utc_date'])
+# Format engagements Data
+for submission in submissions:
+	submission['completion_date'] = parse_date(submission['completion_date'])
+	submission['creation_date'] = parse_date(submission['creation_date'])
 
 # print enrollments[0]
 # print engagements[0]
-# print submissions[0]
+#print submissions[0]
+
+enrollment_num_rows = len(enrollments)
+engagement_num_rows = len(engagements)
+submission_num_rows = len(submissions)
+enrollment_num_rows_unique = len(set(dic['account_key'] for dic in enrollments))
+submissions_num_rows_unique = len(set(dic['account_key'] for dic in submissions))
+engagement_num_rows_unique = len(set(dic['acct'] for dic in engagements))
+
+print engagement_num_rows
+print enrollment_num_rows
+print submission_num_rows
+print enrollment_num_rows_unique
+print submissions_num_rows_unique
+print engagement_num_rows_unique
 
 
 
