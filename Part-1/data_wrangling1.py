@@ -1,4 +1,4 @@
-import unicodecsv
+import unicodecsv,csv
 from datetime import datetime
 
 enrollments_filepath = '../Dataset/enrollments.csv'
@@ -68,16 +68,32 @@ for submission in submissions:
 	submission['completion_date'] = parse_date(submission['completion_date'])
 	submission['creation_date'] = parse_date(submission['creation_date'])
 
-# print enrollments[0]
-# print engagements[0]
-#print submissions[0]
+new_enrollments_filepath = "../Dataset/enrollments_wrangled.csv"
+new_submissions_filepath = "../Dataset/submissions_wrangled.csv"
+new_engagements_filepath = "../Dataset/engagements_wrangled.csv"
+
+def write2csv(filename,dataset):
+	keys = dataset[0].keys()
+	with open(filename,'wb') as f:
+		writer = csv.DictWriter(f,keys)
+		writer.writeheader()
+		writer.writerows(dataset)
+
+
+write2csv(new_engagements_filepath,engagements)
+write2csv(new_enrollments_filepath,enrollments)
+write2csv(new_submissions_filepath,submissions)
+
+
+
 
 enrollment_num_rows = len(enrollments)
 engagement_num_rows = len(engagements)
 submission_num_rows = len(submissions)
-enrollment_num_rows_unique = len(find_uniqueset(enrollments) ))
+enrollment_num_rows_unique = len(find_uniqueset(enrollments))
 submissions_num_rows_unique = len(find_uniqueset(submissions))
 engagement_num_rows_unique = len(find_uniqueset(engagements))
+
 
 # print engagement_num_rows
 # print enrollment_num_rows
